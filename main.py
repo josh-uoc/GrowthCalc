@@ -10,8 +10,12 @@ from tkinter import ttk
 
 
 # Compound interest function
-def compound(initial, rate, years):
-    amount = initial * (1 + rate) ** years
+def compound(initial, rate, years, per_month):
+    month = years * 12
+    month_rate = rate / 12
+    amount = initial
+    for _ in range(month):
+        amount = amount * (1 + month_rate) + per_month
     return amount
 
 # # Main test:
@@ -28,7 +32,8 @@ def calc(event=None):
         initial = float(initial_entry.get())
         rate = float(rate_entry.get()) / 100
         years = int(years_entry.get())
-        amount = compound(initial, rate, years)
+        per_month = float(per_month_entry.get())
+        amount = compound(initial, rate, years, per_month)
         result_label.config(text=f"Total amount: £{amount:.2f}")
     except ValueError:
         result_label.config(text="Please enter valid numbers.")
@@ -56,22 +61,27 @@ if __name__ == "__main__":
     initial_entry.grid(column=1, row=0, sticky=(tk.W, tk.E), pady=5)
 
     # Annual interest rate input:
-    ttk.Label(frame, text="Annual interest rate (%):").grid(column=0, row=1)
+    ttk.Label(frame, text="Annual interest rate (%):").grid(column=0, row=1, sticky=tk.W, pady=5)
     rate_entry = ttk.Entry(frame)
     rate_entry.grid(column=1, row=1, sticky=(tk.W, tk.E), pady=5)
 
     # Number of years input:
-    ttk.Label(frame, text="Number of years:").grid(column=0, row=2, sticky=tk.W, pady=5)
+    ttk.Label(frame, text="Number of whole years:").grid(column=0, row=2, sticky=tk.W, pady=5)
     years_entry = ttk.Entry(frame)
     years_entry.grid(column=1, row=2)
 
+    # Monthly contribution input:
+    ttk.Label(frame, text="Monthly contribution (£):").grid(column=0, row=3, sticky=tk.W, pady=5)
+    per_month_entry = ttk.Entry(frame)
+    per_month_entry.grid(column=1, row=3, sticky=(tk.W, tk.E), pady=5)
+
     # Calculate button:
     calc_button = ttk.Button(frame, text="Calculate", command=calc)
-    calc_button.grid(column=1, row=3, sticky=tk.E, pady=10)
+    calc_button.grid(column=1, row=4, sticky=tk.E, pady=10)
 
     # Result label:
     result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=("Helvetica", 12, "italic"), borderwidth=1, relief="solid", padding=(5, 5))
-    result_label.grid(column=0, row=4, columnspan=2, sticky=(tk.W, tk.E), pady=10)
+    result_label.grid(column=0, row=5, columnspan=2, sticky=(tk.W, tk.E), pady=10)
 
 
     # Binds for hitting enter:
@@ -80,5 +90,5 @@ if __name__ == "__main__":
     years_entry.bind("<Return>", calc)
 
     # Event loop:
-    root.geometry("300x210")
+    root.geometry("300x250")
     root.mainloop()
