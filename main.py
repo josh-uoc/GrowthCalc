@@ -29,16 +29,36 @@ def compound(initial, rate, years, per_month):
 # Main:
 def calc(event=None):
     try:
+        # Check for all fields having info:
+        if not all([initial_entry.get(), rate_entry.get(), years_entry.get(), per_month_entry.get()]):
+            raise ValueError("All fields must be filled")
+
+        # Declare variables:
         initial = float(initial_entry.get())
         rate = float(rate_entry.get()) / 100
         years = int(years_entry.get())
         per_month = float(per_month_entry.get())
+
+        # Check for non-negative:
+        if initial < 0 or rate < 0 or years < 0 or per_month < 0:
+            raise ValueError("All values must be non-negative.")
+        
+        # Check for years < 100:
+        if years > 100:
+            raise ValueError("Number of years should be 100 or less.")
+        
+        # Check for interest < 100%:
+        if rate > 1:
+            raise ValueError(f"Interest rate should be 100% or less.")
+        
+        # Calculation
         amount = compound(initial, rate, years, per_month)
         result_label.config(text=f"Total amount: £{amount:.2f}")
-    except ValueError:
-        result_label.config(text="Please enter valid numbers.")
+    
+    except ValueError as x:
+        result_label.config(text=str(x))
 
-# TKinter:
+# GUI:
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Compound Interest Calculator")
@@ -90,5 +110,5 @@ if __name__ == "__main__":
     years_entry.bind("<Return>", calc)
 
     # Event loop:
-    root.geometry("300x250")
+    root.geometry("350x250")
     root.mainloop()
