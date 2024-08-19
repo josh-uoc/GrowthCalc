@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font as tkfont
 
 
 
@@ -63,10 +64,18 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.title("Compound Interest Calculator")
 
+    # Styling
+    bg_colour = "2e3440"
+    fg_colour = "#eceff4"
+    accent_colour = "#bf616a"
+
+    font = tkfont.Font(family="Helvetica", size=10)
 
     # Configuration:
     style = ttk.Style()
-    style.configure("Tlabel", font=("Arial", 12))
+    style.theme_use('clam')
+    style.configure("TFrame", background=bg_colour)
+    style.configure("Tlabel", background=bg_colour, foreground=fg_colour, font=font)
     style.configure("Tbutton", font=("Arial", 12))
 
     # Frame & grid:
