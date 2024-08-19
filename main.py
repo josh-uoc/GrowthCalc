@@ -87,12 +87,12 @@ if __name__ == "__main__":
     # Main frame:
     frame = ttk.Frame(root, padding="20")
     frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S))
-    frame.configure(border=2, relief="ridge")
+    frame.configure(border=2, relief="flat")
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
     # Header
-    header_label = ttk.Label(frame, text="Compound Interest Calculator", font=title_font)
+    header_label = ttk.Label(frame, text="Compound Interest Calculator", font=title_font, anchor="center")
     header_label.grid(column=0, row=0, columnspan=2, pady=(0, 20))
 
     # Input
@@ -105,8 +105,8 @@ if __name__ == "__main__":
 
     for i, (label_text, entry_name) in enumerate(fields):
         ttk.Label(frame, text=label_text).grid(column=0, row=i+1, sticky=tk.W, padx=(0, 10), pady=5)
-        entry = ttk.Entry(frame, width=20)
-        entry.grid(column=1, row=i+1, sticky=tk.E, pady=5)
+        entry = ttk.Entry(frame, width=25)
+        entry.grid(column=1, row=i+1, sticky=tk.E)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # Result label:
     result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=result_font)
-    result_label.grid(column=0, row=len(fields)+2, columnspan=2, sticky=(tk.W, tk.E), pady=10)
+    result_label.grid(column=0, row=len(fields)+2, columnspan=2, sticky=(tk.W, tk.E), pady=15)
 
     # Grid
     for child in frame.winfo_children():
