@@ -31,14 +31,14 @@ def compound(initial, rate, years, per_month):
 def calc(event=None):
     try:
         # Check for all fields having info:
-        if not all([initial_entry.get(), rate_entry.get(), years_entry.get(), per_month_entry.get()]):
+        if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
             raise ValueError("All fields must be filled")
 
         # Declare variables:
-        initial = float(initial_entry.get())
-        rate = float(rate_entry.get()) / 100
-        years = int(years_entry.get())
-        per_month = float(per_month_entry.get())
+        initial = float(frame.initial_entry.get())
+        rate = float(frame.rate_entry.get()) / 100
+        years = int(frame.years_entry.get())
+        per_month = float(frame.per_month_entry.get())
 
         # Check for non-negative:
         if initial < 0 or rate < 0 or years < 0 or per_month < 0:
@@ -92,39 +92,36 @@ if __name__ == "__main__":
     header_label = ttk.Label(frame, text="Compound Interest Calculator", font=("Helvetica", 16, "bold"))
     header_label.grid(column=0, row=0, columnspan=2, pady=(0, 20))
 
-    # Inital amount input:
-    ttk.Label(frame, text="Initial amount (£):").grid(column=0, row=0, sticky=tk.W, padx=10, pady=10)
-    initial_entry = ttk.Entry(frame)
-    initial_entry.grid(column=1, row=0, sticky=(tk.W, tk.E), padx=10, pady=10)
+    # Input
+    fields = [
+        ("Initial amount (£):", "initial"),
+        ("Annual interest rate (%):", "rate"),
+        ("Number of whole years:", "years"),
+        ("Monthly contribution (£):", "per_month"),
+    ]
 
-    # Annual interest rate input:
-    ttk.Label(frame, text="Annual interest rate (%):").grid(column=0, row=1, sticky=tk.W, padx=10, pady=10)
-    rate_entry = ttk.Entry(frame)
-    rate_entry.grid(column=1, row=1, sticky=(tk.W, tk.E), padx=10, pady=10)
-
-    # Number of years input:
-    ttk.Label(frame, text="Number of whole years:").grid(column=0, row=2, sticky=tk.W, padx=10, pady=10)
-    years_entry = ttk.Entry(frame)
-    years_entry.grid(column=1, row=2, sticky=(tk.W, tk.E), padx=10, pady=10)
-
-    # Monthly contribution input:
-    ttk.Label(frame, text="Monthly contribution (£):").grid(column=0, row=3, sticky=tk.W, padx=10, pady=10)
-    per_month_entry = ttk.Entry(frame)
-    per_month_entry.grid(column=1, row=3, sticky=(tk.W, tk.E), padx=10, pady=10)
+    for i, (label_text, entry_name) in enumerate(fields):
+        ttk.Label(frame, text=label_text).grid(column=0, row=i+1, sticky=tk.W, padx=(0, 10), pady=5)
+        entry = ttk.Entry(frame, width=20)
+        entry.grid(column=1, row=i+1, sticky=tk.E, pady=5)
+        setattr(frame, f"{entry_name}_entry", entry)
+        entry.bind("<Return>", calc)
 
     # Calculate button:
     calc_button = ttk.Button(frame, text="Calculate", command=calc)
-    calc_button.grid(column=1, row=4, sticky=tk.E, pady=10)
+    calc_button.grid(column=1, sticky=(tk.E), pady=5)
 
     # Result label:
-    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=("Arial", 12, "bold"), borderwidth=1, relief="solid", padding=(5, 5))
-    result_label.grid(column=0, row=5, columnspan=2, sticky=(tk.W, tk.E), pady=10)
+    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=("Helvetica", 12, "bold"))
+    result_label.grid(column=0, row=len(fields)+2, columnspan=2, sticky=(tk.W, tk.E), pady=10)
+
+    # Grid
+    for child in frame.winfo_children():
+        child.grid_configure(padx=5)
 
 
-    # Binds for hitting enter:
-    initial_entry.bind("<Return>", calc)
-    rate_entry.bind("<Return>", calc)
-    years_entry.bind("<Return>", calc)
+    # Bind for hitting enter:
+    entry.bind("<Return>", calc)
 
     # Event loop:
     root.geometry("400x400")
