@@ -65,7 +65,7 @@ if __name__ == "__main__":
     root.title("Compound Interest Calculator")
 
     # Styling
-    bg_colour = "2e3440"
+    bg_colour = "#333333"
     fg_colour = "#eceff4"
     accent_colour = "#bf616a"
 
@@ -76,15 +76,21 @@ if __name__ == "__main__":
     style.theme_use('clam')
     style.configure("TFrame", background=bg_colour)
     style.configure("Tlabel", background=bg_colour, foreground=fg_colour, font=font)
-    style.configure("Tbutton", font=("Arial", 12))
+    style.configure("TEntry", fieldbackground=fg_colour, font=font)
+    style.configure("Tbutton", background=accent_colour, foreground=fg_colour, font=font)
+    style.map("TButton", background=[('active', accent_colour)])
 
-    # Frame & grid:
+    # Main frame:
     frame = ttk.Frame(root, padding="20")
     frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S))
     root.columnconfigure(0, weight=1)
     frame.columnconfigure(0, weight=1)
     frame.columnconfigure(1, weight=2)
     root.rowconfigure(0, weight=1)
+
+    # Header
+    header_label = ttk.Label(frame, text="Compound Interest Calculator", font=("Helvetica", 16, "bold"))
+    header_label.grid(column=0, row=0, columnspan=2, pady=(0, 20))
 
     # Inital amount input:
     ttk.Label(frame, text="Initial amount (£):").grid(column=0, row=0, sticky=tk.W, padx=10, pady=10)
@@ -121,5 +127,5 @@ if __name__ == "__main__":
     years_entry.bind("<Return>", calc)
 
     # Event loop:
-    root.geometry("400x300")
+    root.geometry("400x400")
     root.mainloop()
