@@ -64,43 +64,45 @@ if __name__ == "__main__":
     root.title("Compound Interest Calculator")
 
 
-    # Theme:
+    # Configuration:
     style = ttk.Style()
-    style.configure("Tlabel", font=("Helvetica", 12))
-    style.configure("Tbutton", font=("Helvetica", 12))
+    style.configure("Tlabel", font=("Arial", 12))
+    style.configure("Tbutton", font=("Arial", 12))
 
     # Frame & grid:
     frame = ttk.Frame(root, padding="20")
     frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S))
     root.columnconfigure(0, weight=1)
+    frame.columnconfigure(0, weight=1)
+    frame.columnconfigure(1, weight=2)
     root.rowconfigure(0, weight=1)
 
     # Inital amount input:
-    ttk.Label(frame, text="Initial amount (£):").grid(column=0, row=0, sticky=tk.W, pady=5)
+    ttk.Label(frame, text="Initial amount (£):").grid(column=0, row=0, sticky=tk.W, padx=10, pady=10)
     initial_entry = ttk.Entry(frame)
-    initial_entry.grid(column=1, row=0, sticky=(tk.W, tk.E), pady=5)
+    initial_entry.grid(column=1, row=0, sticky=(tk.W, tk.E), padx=10, pady=10)
 
     # Annual interest rate input:
-    ttk.Label(frame, text="Annual interest rate (%):").grid(column=0, row=1, sticky=tk.W, pady=5)
+    ttk.Label(frame, text="Annual interest rate (%):").grid(column=0, row=1, sticky=tk.W, padx=10, pady=10)
     rate_entry = ttk.Entry(frame)
-    rate_entry.grid(column=1, row=1, sticky=(tk.W, tk.E), pady=5)
+    rate_entry.grid(column=1, row=1, sticky=(tk.W, tk.E), padx=10, pady=10)
 
     # Number of years input:
-    ttk.Label(frame, text="Number of whole years:").grid(column=0, row=2, sticky=tk.W, pady=5)
+    ttk.Label(frame, text="Number of whole years:").grid(column=0, row=2, sticky=tk.W, padx=10, pady=10)
     years_entry = ttk.Entry(frame)
-    years_entry.grid(column=1, row=2)
+    years_entry.grid(column=1, row=2, sticky=(tk.W, tk.E), padx=10, pady=10)
 
     # Monthly contribution input:
-    ttk.Label(frame, text="Monthly contribution (£):").grid(column=0, row=3, sticky=tk.W, pady=5)
+    ttk.Label(frame, text="Monthly contribution (£):").grid(column=0, row=3, sticky=tk.W, padx=10, pady=10)
     per_month_entry = ttk.Entry(frame)
-    per_month_entry.grid(column=1, row=3, sticky=(tk.W, tk.E), pady=5)
+    per_month_entry.grid(column=1, row=3, sticky=(tk.W, tk.E), padx=10, pady=10)
 
     # Calculate button:
     calc_button = ttk.Button(frame, text="Calculate", command=calc)
     calc_button.grid(column=1, row=4, sticky=tk.E, pady=10)
 
     # Result label:
-    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=("Helvetica", 12, "italic"), borderwidth=1, relief="solid", padding=(5, 5))
+    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=("Arial", 12, "bold"), borderwidth=1, relief="solid", padding=(5, 5))
     result_label.grid(column=0, row=5, columnspan=2, sticky=(tk.W, tk.E), pady=10)
 
 
@@ -110,5 +112,5 @@ if __name__ == "__main__":
     years_entry.bind("<Return>", calc)
 
     # Event loop:
-    root.geometry("350x250")
+    root.geometry("400x300")
     root.mainloop()
