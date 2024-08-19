@@ -71,9 +71,9 @@ if __name__ == "__main__":
     entry_bg_colour = "#3b4252"
     button_colour = "#5e81ac"
 
-    title_font = tkfont.Font(family="Helvetica", size=18, weight="bold")
-    main_font = tkfont.Font(family="Helvetica", size=12)
-    result_font = tkfont.Font(family="Helvetica", size=14, weight="bold")
+    title_font = tkfont.Font(family="Helvetica", size=20, weight="bold")
+    main_font = tkfont.Font(family="Helvetica", size=14)
+    result_font = tkfont.Font(family="Helvetica", size=16, weight="bold")
 
     # Configuration:
     style = ttk.Style()
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     ]
 
     for i, (label_text, entry_name) in enumerate(fields):
-        ttk.Label(frame, text=label_text).grid(column=0, row=i+1, sticky=tk.W, padx=(0, 10), pady=5)
+        ttk.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=5)
         entry = ttk.Entry(frame, width=25)
         entry.grid(column=1, row=i+1, sticky=tk.E)
         setattr(frame, f"{entry_name}_entry", entry)
@@ -128,5 +128,5 @@ if __name__ == "__main__":
 
     # Event loop:
     root.configure(bg=bg_colour)
-    root.geometry("400x350")
+    root.geometry("470x350")
     root.mainloop()
