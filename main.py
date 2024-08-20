@@ -65,19 +65,19 @@ if __name__ == "__main__":
     root.title("Compound Interest Calculator")
 
     # Window styling
-    root.geometry("400x500")
+    root.geometry("450x550")
     root.resizable(False, False)
 
     # Styling
-    bg_colour = "#f4f4f4"
-    fg_colour = "#333333"
-    accent_colour = "#dd1100"
-    entry_bg_colour = "#f0f0f0"
-    button_colour = "#dd1100"
+    bg_colour = "#1e1e1e"
+    fg_colour = "#ffffff"
+    accent_colour = "#005a9e"
+    entry_bg_colour = "#333333"
+    button_colour = "#0078d7"
 
-    title_font = tkfont.Font(family="Arial", size=24, weight="bold")
-    main_font = tkfont.Font(family="Arial", size=12)
-    result_font = tkfont.Font(family="Arial", size=16, weight="bold")
+    title_font = tkfont.Font(family="Segoe UI", size=22)
+    main_font = tkfont.Font(family="Segoe UI", size=12)
+    result_font = tkfont.Font(family="Segoe UI", size=16, weight="bold")
 
     # Configuration
     style = ttk.Style()
@@ -89,15 +89,15 @@ if __name__ == "__main__":
     style.map("TButton", background=[('active', accent_colour)])
 
     # Main frame
-    frame = ttk.Frame(root, padding="20")
-    frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S))
-    frame.configure(border=2, relief="flat")
+    frame = ttk.Frame(root, padding="30")
+    frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=10, pady=10)
+    frame.configure(border=0, relief="flat")
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
     # Header
-    header_label = ttk.Label(frame, text="Compound Interest Calculator", font=title_font, anchor="center")
-    header_label.grid(column=0, row=0, columnspan=2, pady=(0, 20))
+    header_label = ttk.Label(frame, text="Compound Interest\n        Calculator", font=title_font, anchor="center")
+    header_label.grid(column=0, row=0, columnspan=3, pady=(0, 30))
 
     # Input
     fields = [
@@ -108,24 +108,23 @@ if __name__ == "__main__":
     ]
 
     for i, (label_text, entry_name) in enumerate(fields):
-        ttk.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=5)
-        entry = ttk.Entry(frame, width=25)
-        entry.grid(column=1, row=i+1, sticky=tk.E)
+        ttk.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=10)
+        entry = ttk.Entry(frame, width=30)
+        entry.grid(column=1, row=i+1, sticky=tk.E, pady=10)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
 
     # Calculate button
-    calc_button = ttk.Button(frame, text="Calculate", command=calc)
-    calc_button.grid(column=1, sticky=(tk.E), pady=5)
+    calc_button = ttk.Button(frame, text="Calculate", command=calc, width=20)
+    calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=20)
 
     # Result label
-    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=result_font)
-    result_label.grid(column=0, row=len(fields)+2, columnspan=2, sticky=(tk.W, tk.E), pady=15)
+    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=400)
+    result_label.grid(column=0, columnspan=2, row=len(fields)+2, sticky=(tk.W, tk.E), pady=15)
 
     # Grid
-    for child in frame.winfo_children():
-        child.grid_configure(padx=5)
-
+    frame.columnconfigure(0, weight=1)
+    frame.columnconfigure(1, weight=1)
 
     # Bind for hitting enter
     entry.bind("<Return>", calc)
