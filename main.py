@@ -1,8 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, Canvas
 from tkinter import font as tkfont
-import ttkbootstrap as ttkb
-from ttkbootstrap.constants import *
 
 
 
@@ -11,6 +9,8 @@ from ttkbootstrap.constants import *
 ####################################
 
 
+
+### MAIN FUNCTION ###
 
 # Compound interest function
 def compound(initial, rate, years, per_month):
@@ -21,7 +21,7 @@ def compound(initial, rate, years, per_month):
         amount = amount * (1 + month_rate) + per_month
     return amount
 
-# # Main test:
+# # Main function test:
 # if __name__ == "__main__":
 #     initial = float(input("Initial amount (£): £"))
 #     rate = float(input("Annual interest rate (%): "))
@@ -29,7 +29,7 @@ def compound(initial, rate, years, per_month):
 #     amount = compound(initial, rate, years)
 #     print(f"Total amount after {years} years: £{amount:.2f}")
 
-# Main:
+# Calculation
 def calc(event=None):
     try:
         # Check for all fields having info:
@@ -61,7 +61,27 @@ def calc(event=None):
     except ValueError as x:
         result_label.config(text=str(x))
 
-# GUI:
+
+
+### GUI ###
+
+# # Draw rounded rectangle on canvas; for rounded button
+# def rounded_rectangle(canvas, x1, y1, x2, y2, r, **kwargs):
+#     canvas.create_arc(x1, y1, x1 + 2*r, y1 + 2*r, start=90, extent=90, **kwargs)    # Top left.
+#     canvas.create_arc(x2 - 2*r, y1, x2, y1 + 2*r, start=0, extent=90, **kwargs)    # Top right.
+#     canvas.create_arc(x1, y2 - 2*r, x1 + 2*r, y2, start=180, extent=90, **kwargs)    # Bottom left.
+#     canvas.create_arc(x2 - 2*r, y2 - 2*r, x2, y2, start=270, extent=90, **kwargs)    # Bottom right.
+#     canvas.create_rectangle(x1 + r, y1, x2 - r, y2, **kwargs)   # Top side.
+#     canvas.create_rectangle(x1, y1 + r, x2, y2 - r, **kwargs)   # Centre.
+
+# # Draw rounded button on the canvas
+# def rounded_button(canvas, x1, y1, x2, y2, r, text, command, **kwargs):
+#     rounded_rectangle(canvas, x1, y1, x2, y2, r, fill="#0078d7", outline="black")
+#     button = tk.Button(canvas.master, text=text, command=command, borderwidth=0, relief="flat")
+#     canvas.create_window((x1 + x2) / 2, (y1 + y2) / 2, window=button)
+
+
+# Main
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Compound Interest Calculator")
@@ -117,6 +137,9 @@ if __name__ == "__main__":
         entry.bind("<Return>", calc)
 
     # Calculate button
+    # canvas = tk.Canvas(frame, width=200, height=40, bg=button_colour, highlightthickness=0)
+    # canvas.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
+    # rounded_button(canvas, 0, 0, 200, 40, 10, text="Calculate", command=calc)
     calc_button = ttk.Button(frame, text="Calculate", command=calc, width=20)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
 
