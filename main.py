@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import font as tkfont
+import ttkbootstrap as ttkb
+from ttkbootstrap.constants import *
 
 
 
@@ -54,7 +56,7 @@ def calc(event=None):
         
         # Calculation
         amount = compound(initial, rate, years, per_month)
-        result_label.config(text=f"Total amount: £{amount:.2f}")
+        result_label.config(text=f"Total amount:\n£{amount:.2f}")
     
     except ValueError as x:
         result_label.config(text=str(x))
@@ -77,7 +79,7 @@ if __name__ == "__main__":
 
     title_font = tkfont.Font(family="Segoe UI", size=22)
     main_font = tkfont.Font(family="Segoe UI", size=12)
-    result_font = tkfont.Font(family="Segoe UI", size=16, weight="bold")
+    result_font = tkfont.Font(family="Segoe UI", size=16)
 
     # Configuration
     style = ttk.Style()
