@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     # Styling
     bg_colour = "#1e1e1e"
-    fg_colour = "#ffffff"
+    fg_colour = "#f4f4f4"
     accent_colour = "#005a9e"
     entry_bg_colour = "#333333"
     button_colour = "#0078d7"
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     style.configure("TFrame", background=bg_colour)
     style.configure("TLabel", background=bg_colour, foreground=fg_colour, font=main_font)
     style.configure("TEntry", fieldbackground=entry_bg_colour, foreground=fg_colour, font=main_font)
-    style.configure("TButton", background=button_colour, foreground=bg_colour, font=main_font)
+    style.configure("TButton", background=button_colour, foreground=fg_colour, font=main_font)
     style.map("TButton", background=[('active', accent_colour)])
 
     # Main frame
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # Calculate button
     calc_button = ttk.Button(frame, text="Calculate", command=calc, width=20)
-    calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=20)
+    calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
 
     # Result label
     result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=400)
