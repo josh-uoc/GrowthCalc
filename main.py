@@ -34,16 +34,22 @@ def compound(initial, rate, years, per_month):
 def calc(event=None):
     try:
         # Retrieve inputs:
-        initial = float(frame.initial_entry.get())
-        rate = float(frame.rate_entry.get()) / 100
-        years = int(frame.years_entry.get())
-        per_month = float(frame.per_month_entry.get())
+        initial = frame.initial_entry.get()
+        rate = frame.rate_entry.get()
+        years = frame.years_entry.get()
+        per_month = frame.per_month_entry.get()
         
         # Check for all fields having info:
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
             raise ValueError("All fields must be filled.")
-        if not(initial.replace(".","", 1).isdigit() and rate.replace(".", "", 1).isidigit() and years.isdigit() and per_month.replace(".", "", 1).isdigit()):
+        if not(initial.replace(".","", 1).isdigit() and rate.replace(".", "", 1).isdigit() and years.isdigit() and per_month.replace(".", "", 1).isdigit()):
             raise ValueError("All fields must be numeric.")
+        
+        # Converts inputs to appropriate types:
+        initial = float(initial)
+        rate = float(rate) / 100
+        years = int(years)
+        per_month = float(per_month)
 
         # Check for non-negative:
         if initial < 0 or rate < 0 or years < 0 or per_month < 0:
