@@ -31,6 +31,14 @@ def compound(initial, rate, years, per_month):
 #     amount = compound(initial, rate, years)
 #     print(f"Total amount after {years} years: £{amount:.2f}")
 
+# Decimal check:
+def decimal(value, max=2):
+    try:
+        pounds, pence = value.split(".")
+        return len(pence) <= max
+    except ValueError:
+        return True
+
 # Calculation:
 def calc(event=None):
     try:
@@ -46,6 +54,12 @@ def calc(event=None):
         if not(initial.replace(".","", 1).isdigit() and rate.replace(".", "", 1).isdigit() and years.isdigit() and per_month.replace(".", "", 1).isdigit()):
             raise ValueError("All fields must be numeric.")
         
+        # Decimal check:
+        if not decimal(initial):
+            raise ValueError("Pence amount should not have more than two decimal places.")
+        if not decimal(per_month):
+            raise ValueError ("Pence amount should not have more than two decimal places.")
+
         # Converts inputs to appropriate types:
         initial = float(initial)
         rate = float(rate) / 100
@@ -145,7 +159,7 @@ if __name__ == "__main__":
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
 
     # Result label
-    result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=450)
+    result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=380)
     result_label.grid(column=0, columnspan=2, row=len(fields)+2, sticky=(tk.W, tk.E), pady=15)
 
     # Grid
