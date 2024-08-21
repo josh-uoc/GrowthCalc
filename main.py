@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, Canvas
 from tkinter import font as tkfont
 import ttkbootstrap as tkb
+from ttkbootstrap.tooltip import ToolTip
 
 
 
@@ -11,7 +12,7 @@ import ttkbootstrap as tkb
 
 
 
-### MAIN FUNCTION ###
+### FUNCTIONS ###
 
 # Compound interest function
 def compound(initial, rate, years, per_month):
@@ -30,7 +31,7 @@ def compound(initial, rate, years, per_month):
 #     amount = compound(initial, rate, years)
 #     print(f"Total amount after {years} years: £{amount:.2f}")
 
-# Calculation
+# Calculation:
 def calc(event=None):
     try:
         # Retrieve inputs:
@@ -69,6 +70,13 @@ def calc(event=None):
     
     except ValueError as x:
         result_label.config(text=str(x))
+
+# Tooltips:
+def tooltips():
+    ToolTip(frame.initial_entry, text="Enter the initial amount in GBP.")
+    ToolTip(frame.rate_entry, text="Enter the annual interest rate as a percentage.")
+    ToolTip(frame.years_entry, text="Enter the number of whole years.")
+    ToolTip(frame.per_month_entry, text="Enter the monthly contribution in GBP.")
 
 
 
@@ -128,6 +136,9 @@ if __name__ == "__main__":
         entry.grid(column=1, row=i+1, sticky=tk.E, pady=10)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
+
+    # Tooltips
+    tooltips()
 
     # Calculate button
     calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
