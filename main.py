@@ -23,7 +23,7 @@ def compound(initial, rate, years, per_month):
         amount = amount * (1 + month_rate) + per_month
     return amount
 
-# # Main function test:
+# # Main function test
 # if __name__ == "__main__":
 #     initial = float(input("Initial amount (£): £"))
 #     rate = float(input("Annual interest rate (%): "))
@@ -31,7 +31,7 @@ def compound(initial, rate, years, per_month):
 #     amount = compound(initial, rate, years)
 #     print(f"Total amount after {years} years: £{amount:.2f}")
 
-# Decimal check:
+# Decimal check
 def decimal(value, max=2):
     try:
         pounds, pence = value.split(".")
@@ -39,42 +39,42 @@ def decimal(value, max=2):
     except ValueError:
         return True
 
-# Calculation:
+# Calculation
 def calc(event=None):
     try:
-        # Retrieve and clean inputs:
+        # Retrieve and clean inputs
         initial = frame.initial_entry.get().replace(",", "")
         rate = frame.rate_entry.get().replace(",", "")
         years = frame.years_entry.get().replace(",", "")
         per_month = frame.per_month_entry.get().replace(",", "")
         
-        # Check for all fields having info:
+        # Check for all fields having info
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
             raise ValueError("All fields must be filled.")
         if not(initial.replace(".","", 1).isdigit() and rate.replace(".", "", 1).isdigit() and years.isdigit() and per_month.replace(".", "", 1).isdigit()):
             raise ValueError("All fields must be numeric.")
         
-        # Decimal check:
+        # Decimal check
         if not decimal(initial):
             raise ValueError("Pence amount should not have more than two decimal places.")
         if not decimal(per_month):
             raise ValueError ("Pence amount should not have more than two decimal places.")
 
-        # Converts inputs to appropriate types:
+        # Converts inputs to appropriate types
         initial = float(initial)
         rate = float(rate) / 100
         years = int(years)
         per_month = float(per_month)
 
-        # Check for non-negative:
+        # Check for non-negative
         if initial < 0 or rate < 0 or years < 0 or per_month < 0:
             raise ValueError("All values must be non-negative.")
         
-        # Check for years < 100:
+        # Check for years < 100
         if years > 100:
             raise ValueError("Number of years should be 100 or less.")
         
-        # Check for interest < 100%:
+        # Check for interest < 100%
         if rate > 1:
             raise ValueError(f"Interest rate should be 100% or less.")
         
@@ -85,7 +85,7 @@ def calc(event=None):
     except ValueError as x:
         result_label.config(text=str(x))
 
-# Tooltips:
+# Tooltips
 def tooltips():
     ToolTip(frame.initial_entry, text="Enter the initial amount in GBP.")
     ToolTip(frame.rate_entry, text="Enter the annual interest rate as a percentage.")
@@ -167,7 +167,8 @@ if __name__ == "__main__":
     frame.columnconfigure(1, weight=1)
 
     # Bind for hitting enter
-    entry.bind("<Return>", calc)
+    root.bind("<Return>", calc)
+    calc_button.bind("<Return>", calc)
 
     # Event loop
     root.configure(bg=bg_colour)
