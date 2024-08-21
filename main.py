@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, Canvas
 from tkinter import font as tkfont
+import ttkbootstrap as tkb
 
 
 
@@ -32,15 +33,23 @@ def compound(initial, rate, years, per_month):
 # Calculation
 def calc(event=None):
     try:
+        # Retrieve inputs:
+        initial = frame.initial_entry.get()
+        rate = frame.rate_entry.get()
+        years = frame.years_entry.get()
+        per_month = frame.per_month_entry.get()
+        
         # Check for all fields having info:
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
-            raise ValueError("All fields must be filled")
-
-        # Declare variables:
-        initial = float(frame.initial_entry.get())
-        rate = float(frame.rate_entry.get()) / 100
-        years = int(frame.years_entry.get())
-        per_month = float(frame.per_month_entry.get())
+            raise ValueError("All fields must be filled.")
+        if not(initial.replace(".","", 1).isdigit() and rate.replace(".", "", 1).isdigit() and years.isdigit() and per_month.replace(".", "", 1).isdigit()):
+            raise ValueError("All fields must be numeric.")
+        
+        # Converts inputs to appropriate types:
+        initial = float(initial)
+        rate = float(rate) / 100
+        years = int(years)
+        per_month = float(per_month)
 
         # Check for non-negative:
         if initial < 0 or rate < 0 or years < 0 or per_month < 0:
@@ -65,22 +74,6 @@ def calc(event=None):
 
 ### GUI ###
 
-# # Draw rounded rectangle on canvas; for rounded button
-# def rounded_rectangle(canvas, x1, y1, x2, y2, r, **kwargs):
-#     canvas.create_arc(x1, y1, x1 + 2*r, y1 + 2*r, start=90, extent=90, **kwargs)    # Top left.
-#     canvas.create_arc(x2 - 2*r, y1, x2, y1 + 2*r, start=0, extent=90, **kwargs)    # Top right.
-#     canvas.create_arc(x1, y2 - 2*r, x1 + 2*r, y2, start=180, extent=90, **kwargs)    # Bottom left.
-#     canvas.create_arc(x2 - 2*r, y2 - 2*r, x2, y2, start=270, extent=90, **kwargs)    # Bottom right.
-#     canvas.create_rectangle(x1 + r, y1, x2 - r, y2, **kwargs)   # Top side.
-#     canvas.create_rectangle(x1, y1 + r, x2, y2 - r, **kwargs)   # Centre.
-
-# # Draw rounded button on the canvas
-# def rounded_button(canvas, x1, y1, x2, y2, r, text, command, **kwargs):
-#     rounded_rectangle(canvas, x1, y1, x2, y2, r, fill="#0078d7", outline="black")
-#     button = tk.Button(canvas.master, text=text, command=command, borderwidth=0, relief="flat")
-#     canvas.create_window((x1 + x2) / 2, (y1 + y2) / 2, window=button)
-
-
 # Main
 if __name__ == "__main__":
     root = tk.Tk()
@@ -102,8 +95,8 @@ if __name__ == "__main__":
     result_font = tkfont.Font(family="Segoe UI", size=16)
 
     # Configuration
-    style = ttk.Style()
-    style.theme_use('clam')
+    style = tkb.Style()
+    style.theme_use('cosmo')
     style.configure("TFrame", background=bg_colour)
     style.configure("TLabel", background=bg_colour, foreground=fg_colour, font=main_font)
     style.configure("TEntry", fieldbackground=entry_bg_colour, foreground=fg_colour, font=main_font)
@@ -111,40 +104,37 @@ if __name__ == "__main__":
     style.map("TButton", background=[('active', accent_colour)])
 
     # Main frame
-    frame = ttk.Frame(root, padding="30")
+    frame = tkb.Frame(root, padding="30")
     frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=10, pady=10)
     frame.configure(border=0, relief="flat")
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
     # Header
-    header_label = ttk.Label(frame, text="Compound Interest\n        Calculator", font=title_font, anchor="center")
+    header_label = tkb.Label(frame, text="Compound Interest\n        Calculator", font=title_font, anchor="center")
     header_label.grid(column=0, row=0, columnspan=3, pady=(0, 30))
 
     # Input
     fields = [
-        ("Initial amount (£):", "initial"),
-        ("Annual interest rate (%):", "rate"),
-        ("Number of whole years:", "years"),
-        ("Monthly contribution (£):", "per_month"),
+        ("Initial amount (£):\t", "initial"),
+        ("Annual interest rate (%):\t", "rate"),
+        ("Number of whole years:\t", "years"),
+        ("Monthly contribution (£):\t", "per_month"),
     ]
 
     for i, (label_text, entry_name) in enumerate(fields):
-        ttk.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=10)
-        entry = ttk.Entry(frame, width=30)
+        tkb.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=10)
+        entry = tkb.Entry(frame, width=30)
         entry.grid(column=1, row=i+1, sticky=tk.E, pady=10)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
 
     # Calculate button
-    # canvas = tk.Canvas(frame, width=200, height=40, bg=button_colour, highlightthickness=0)
-    # canvas.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
-    # rounded_button(canvas, 0, 0, 200, 40, 10, text="Calculate", command=calc)
-    calc_button = ttk.Button(frame, text="Calculate", command=calc, width=20)
+    calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
 
     # Result label
-    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=400)
+    result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=450)
     result_label.grid(column=0, columnspan=2, row=len(fields)+2, sticky=(tk.W, tk.E), pady=15)
 
     # Grid
