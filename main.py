@@ -35,7 +35,7 @@ def calc(event=None):
     try:
         # Check for all fields having info:
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
-            raise ValueError("All fields must be filled.")
+            raise ValueError("All fields must be filled and numeric.")
 
         # Declare variables:
         initial = float(frame.initial_entry.get())
@@ -65,22 +65,6 @@ def calc(event=None):
 
 
 ### GUI ###
-
-# # Draw rounded rectangle on canvas; for rounded button
-# def rounded_rectangle(canvas, x1, y1, x2, y2, r, **kwargs):
-#     canvas.create_arc(x1, y1, x1 + 2*r, y1 + 2*r, start=90, extent=90, **kwargs)    # Top left.
-#     canvas.create_arc(x2 - 2*r, y1, x2, y1 + 2*r, start=0, extent=90, **kwargs)    # Top right.
-#     canvas.create_arc(x1, y2 - 2*r, x1 + 2*r, y2, start=180, extent=90, **kwargs)    # Bottom left.
-#     canvas.create_arc(x2 - 2*r, y2 - 2*r, x2, y2, start=270, extent=90, **kwargs)    # Bottom right.
-#     canvas.create_rectangle(x1 + r, y1, x2 - r, y2, **kwargs)   # Top side.
-#     canvas.create_rectangle(x1, y1 + r, x2, y2 - r, **kwargs)   # Centre.
-
-# # Draw rounded button on the canvas
-# def rounded_button(canvas, x1, y1, x2, y2, r, text, command, **kwargs):
-#     rounded_rectangle(canvas, x1, y1, x2, y2, r, fill="#0078d7", outline="black")
-#     button = tk.Button(canvas.master, text=text, command=command, borderwidth=0, relief="flat")
-#     canvas.create_window((x1 + x2) / 2, (y1 + y2) / 2, window=button)
-
 
 # Main
 if __name__ == "__main__":
@@ -138,9 +122,6 @@ if __name__ == "__main__":
         entry.bind("<Return>", calc)
 
     # Calculate button
-    # canvas = tk.Canvas(frame, width=200, height=40, bg=button_colour, highlightthickness=0)
-    # canvas.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
-    # rounded_button(canvas, 0, 0, 200, 40, 10, text="Calculate", command=calc)
     calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
 
