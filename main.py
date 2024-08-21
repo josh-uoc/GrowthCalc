@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, Canvas
 from tkinter import font as tkfont
+import ttkbootstrap as tkb
 
 
 
@@ -34,7 +35,7 @@ def calc(event=None):
     try:
         # Check for all fields having info:
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
-            raise ValueError("All fields must be filled")
+            raise ValueError("All fields must be filled.")
 
         # Declare variables:
         initial = float(frame.initial_entry.get())
@@ -102,8 +103,8 @@ if __name__ == "__main__":
     result_font = tkfont.Font(family="Segoe UI", size=16)
 
     # Configuration
-    style = ttk.Style()
-    style.theme_use('clam')
+    style = tkb.Style()
+    style.theme_use('cosmo')
     style.configure("TFrame", background=bg_colour)
     style.configure("TLabel", background=bg_colour, foreground=fg_colour, font=main_font)
     style.configure("TEntry", fieldbackground=entry_bg_colour, foreground=fg_colour, font=main_font)
@@ -111,27 +112,27 @@ if __name__ == "__main__":
     style.map("TButton", background=[('active', accent_colour)])
 
     # Main frame
-    frame = ttk.Frame(root, padding="30")
+    frame = tkb.Frame(root, padding="30")
     frame.grid(column=0, row=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=10, pady=10)
     frame.configure(border=0, relief="flat")
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, weight=1)
 
     # Header
-    header_label = ttk.Label(frame, text="Compound Interest\n        Calculator", font=title_font, anchor="center")
+    header_label = tkb.Label(frame, text="Compound Interest\n        Calculator", font=title_font, anchor="center")
     header_label.grid(column=0, row=0, columnspan=3, pady=(0, 30))
 
     # Input
     fields = [
-        ("Initial amount (£):", "initial"),
-        ("Annual interest rate (%):", "rate"),
-        ("Number of whole years:", "years"),
-        ("Monthly contribution (£):", "per_month"),
+        ("Initial amount (£):\t", "initial"),
+        ("Annual interest rate (%):\t", "rate"),
+        ("Number of whole years:\t", "years"),
+        ("Monthly contribution (£):\t", "per_month"),
     ]
 
     for i, (label_text, entry_name) in enumerate(fields):
-        ttk.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=10)
-        entry = ttk.Entry(frame, width=30)
+        tkb.Label(frame, text=label_text, font=main_font).grid(column=0, row=i+1, sticky=tk.W, pady=10)
+        entry = tkb.Entry(frame, width=30)
         entry.grid(column=1, row=i+1, sticky=tk.E, pady=10)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
@@ -140,11 +141,11 @@ if __name__ == "__main__":
     # canvas = tk.Canvas(frame, width=200, height=40, bg=button_colour, highlightthickness=0)
     # canvas.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
     # rounded_button(canvas, 0, 0, 200, 40, 10, text="Calculate", command=calc)
-    calc_button = ttk.Button(frame, text="Calculate", command=calc, width=20)
+    calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
 
     # Result label
-    result_label = ttk.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=400)
+    result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=450)
     result_label.grid(column=0, columnspan=2, row=len(fields)+2, sticky=(tk.W, tk.E), pady=15)
 
     # Grid
