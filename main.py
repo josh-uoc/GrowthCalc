@@ -34,11 +34,11 @@ def compound(initial, rate, years, per_month):
 # Calculation:
 def calc(event=None):
     try:
-        # Retrieve inputs:
-        initial = frame.initial_entry.get()
-        rate = frame.rate_entry.get()
-        years = frame.years_entry.get()
-        per_month = frame.per_month_entry.get()
+        # Retrieve and clean inputs:
+        initial = frame.initial_entry.get().replace(",", "")
+        rate = frame.rate_entry.get().replace(",", "")
+        years = frame.years_entry.get().replace(",", "")
+        per_month = frame.per_month_entry.get().replace(",", "")
         
         # Check for all fields having info:
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
