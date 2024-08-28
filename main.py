@@ -92,12 +92,19 @@ def tooltips():
     ToolTip(frame.years_entry, text="Enter the number of whole years.")
     ToolTip(frame.per_month_entry, text="Enter the monthly contribution in GBP.")
 
+def dpi():
+    try:
+        from ctypes import windll
+        windll.shcore.SetProcessDpiAareness(1)
+    except:
+        pass
 
 
 ### GUI ###
 
 # Main
 if __name__ == "__main__":
+    dpi()
     root = tk.Tk()
     root.title("Compound Interest Calculator")
 
