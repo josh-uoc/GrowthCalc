@@ -1,2 +1,5 @@
 *.py linguist-language=Python
 *.xml linguist-language=XML
+
+docs/* linguist-documentation=true
+*.md linguist-documentation=true
