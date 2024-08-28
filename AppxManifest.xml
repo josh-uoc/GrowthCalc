@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10">
-    <Identity Name="JoshBirch.growthCalc" Publisher="CN=Josh Birch" Version="1.0.0.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities">
+    <Identity Name="com.joshbirch.growthcalc" Publisher="CN=Josh Birch" Version="1.0.0.0" />
     <Properties>
         <DisplayName>growthCalc</DisplayName>
         <PublisherDisplayName>Josh Birch</PublisherDisplayName>
+        <Description>A simple growth calculation tool.</Description>
     </Properties>
     <Resources>
         <Resource Language="en-us" />
     </Resources>
     <Applications>
         <Application Id="App" Executable="App/main.exe" EntryPoint="Windows.FullTrustApplication">
-            <uap:VisualElements DisplayName="growthCalc" Description="A simple growth calculation tool." BackgroundColor="transparent">
+            <uap:VisualElements DisplayName="growthCalc" 
+                                Description="A simple growth calculation tool." 
+                                BackgroundColor="transparent">
+                <uap:DefaultTile>
+                    <uap:ShowNameOnTiles>
+                        <uap:TileSize>Square150x150</uap:TileSize>
+                    </uap:ShowNameOnTiles>
+                </uap:DefaultTile>
             </uap:VisualElements>
         </Application>
     </Applications>
