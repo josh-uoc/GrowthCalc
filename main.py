@@ -150,6 +150,7 @@ if __name__ == "__main__":
         entry.grid(column=1, row=i+1, sticky=tk.E, pady=10)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
+        entry.configure(takefocus=1)
 
     # Tooltips
     tooltips()
@@ -157,6 +158,9 @@ if __name__ == "__main__":
     # Calculate button
     calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
+    calc_button.configure(takefocus=1)
+    calc_button.bind("<Return>", lambda event: calc())
+    calc_button.bind("<space>", lambda event: calc())
 
     # Result label
     result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=380)
