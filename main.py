@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, Canvas
 from tkinter import font as tkfont
 import ttkbootstrap as tkb
+from ttkbootstrap.tooltip import ToolTip
 
 
 
@@ -11,7 +12,7 @@ import ttkbootstrap as tkb
 
 
 
-### MAIN FUNCTION ###
+### FUNCTIONS ###
 
 # Compound interest function
 def compound(initial, rate, years, per_month):
@@ -22,7 +23,7 @@ def compound(initial, rate, years, per_month):
         amount = amount * (1 + month_rate) + per_month
     return amount
 
-# # Main function test:
+# # Main function test
 # if __name__ == "__main__":
 #     initial = float(input("Initial amount (£): £"))
 #     rate = float(input("Annual interest rate (%): "))
@@ -30,36 +31,50 @@ def compound(initial, rate, years, per_month):
 #     amount = compound(initial, rate, years)
 #     print(f"Total amount after {years} years: £{amount:.2f}")
 
+# Decimal check
+def decimal(value, max=2):
+    try:
+        pounds, pence = value.split(".")
+        return len(pence) <= max
+    except ValueError:
+        return True
+
 # Calculation
 def calc(event=None):
     try:
-        # Retrieve inputs:
-        initial = frame.initial_entry.get()
-        rate = frame.rate_entry.get()
-        years = frame.years_entry.get()
-        per_month = frame.per_month_entry.get()
+        # Retrieve and clean inputs
+        initial = frame.initial_entry.get().replace(",", "")
+        rate = frame.rate_entry.get().replace(",", "")
+        years = frame.years_entry.get().replace(",", "")
+        per_month = frame.per_month_entry.get().replace(",", "")
         
-        # Check for all fields having info:
+        # Check for all fields having info
         if not all([frame.initial_entry.get(), frame.rate_entry.get(), frame.years_entry.get(), frame.per_month_entry.get()]):
             raise ValueError("All fields must be filled.")
         if not(initial.replace(".","", 1).isdigit() and rate.replace(".", "", 1).isdigit() and years.isdigit() and per_month.replace(".", "", 1).isdigit()):
             raise ValueError("All fields must be numeric.")
         
-        # Converts inputs to appropriate types:
+        # Decimal check
+        if not decimal(initial):
+            raise ValueError("Pence amount should not have more than two decimal places.")
+        if not decimal(per_month):
+            raise ValueError ("Pence amount should not have more than two decimal places.")
+
+        # Converts inputs to appropriate types
         initial = float(initial)
         rate = float(rate) / 100
         years = int(years)
         per_month = float(per_month)
 
-        # Check for non-negative:
+        # Check for non-negative
         if initial < 0 or rate < 0 or years < 0 or per_month < 0:
             raise ValueError("All values must be non-negative.")
         
-        # Check for years < 100:
+        # Check for years < 100
         if years > 100:
             raise ValueError("Number of years should be 100 or less.")
         
-        # Check for interest < 100%:
+        # Check for interest < 100%
         if rate > 1:
             raise ValueError(f"Interest rate should be 100% or less.")
         
@@ -70,12 +85,26 @@ def calc(event=None):
     except ValueError as x:
         result_label.config(text=str(x))
 
+# Tooltips
+def tooltips():
+    ToolTip(frame.initial_entry, text="Enter the initial amount in GBP.")
+    ToolTip(frame.rate_entry, text="Enter the annual interest rate as a percentage.")
+    ToolTip(frame.years_entry, text="Enter the number of whole years.")
+    ToolTip(frame.per_month_entry, text="Enter the monthly contribution in GBP.")
+
+def dpi():
+    try:
+        from ctypes import windll
+        windll.shcore.SetProcessDpiAareness(1)
+    except:
+        pass
 
 
 ### GUI ###
 
 # Main
 if __name__ == "__main__":
+    dpi()
     root = tk.Tk()
     root.title("Compound Interest Calculator")
 
@@ -128,13 +157,20 @@ if __name__ == "__main__":
         entry.grid(column=1, row=i+1, sticky=tk.E, pady=10)
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
+        entry.configure(takefocus=1)
+
+    # Tooltips
+    tooltips()
 
     # Calculate button
     calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
+    calc_button.configure(takefocus=1)
+    calc_button.bind("<Return>", lambda event: calc())
+    calc_button.bind("<space>", lambda event: calc())
 
     # Result label
-    result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=450)
+    result_label = tkb.Label(frame, text="", justify="center", anchor="center", font=result_font, wraplength=380)
     result_label.grid(column=0, columnspan=2, row=len(fields)+2, sticky=(tk.W, tk.E), pady=15)
 
     # Grid
@@ -142,7 +178,8 @@ if __name__ == "__main__":
     frame.columnconfigure(1, weight=1)
 
     # Bind for hitting enter
-    entry.bind("<Return>", calc)
+    root.bind("<Return>", calc)
+    calc_button.bind("<Return>", calc)
 
     # Event loop
     root.configure(bg=bg_colour)
