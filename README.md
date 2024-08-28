@@ -1,11 +1,4 @@
-
-
-
-####################################
 ### COMPOUND INTEREST CALCULATOR ###
-####################################
-
-
 
 This is a Python-based GUI application for calculating compound interest over a specified period. The application is built using the tkinter library, with ttkbootstrap providing enhanced styling options. Users can input their initial amount, annual interest rate, number of years, and monthly contributions to calculate the final amount after the specified period.
 
