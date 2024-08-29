@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
-         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
-         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
-         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities">
-    <Identity Name="com.joshbirch.growthcalc" Publisher="CN=Josh Birch" Version="1.0.0.0" />
-    <Properties>
-        <DisplayName>growthCalc</DisplayName>
-        <PublisherDisplayName>Josh Birch</PublisherDisplayName>
-        <Description>A simple growth calculation tool.</Description>
-    </Properties>
-    <Resources>
-        <Resource Language="en-us" />
-    </Resources>
-    <Applications>
-        <Application Id="App" Executable="App/main.exe" EntryPoint="Windows.FullTrustApplication">
-            <uap:VisualElements DisplayName="growthCalc" 
-                                Description="A simple growth calculation tool." 
-                                BackgroundColor="transparent">
-                <uap:DefaultTile>
-                    <uap:ShowNameOnTiles>
-                        <uap:TileSize>Square150x150</uap:TileSize>
-                    </uap:ShowNameOnTiles>
-                </uap:DefaultTile>
-            </uap:VisualElements>
-        </Application>
-    </Applications>
-    <Capabilities>
-        <Capability Name="internetClient" />
-        <rescap:Capability Name="runFullTrust" />
-    </Capabilities>
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10" 
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
+         IgnorableNamespaces="uap uap10 rescap">
+  <Identity Name="JoshBirch.growthcalc" 
+            Publisher="CN=38813979-EEBC-440E-8EF0-ECD84614DE61" 
+            Version="1.0.0.0" 
+            ProcessorArchitecture="x64" />
+  <Properties>
+    <DisplayName>growthCalc</DisplayName>
+    <PublisherDisplayName>Josh Birch</PublisherDisplayName>
+    <Description>A simple growth calculation tool</Description>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <uap10:PackageIntegrity>
+      <uap10:Content Enforcement="on" />
+    </uap10:PackageIntegrity>
+  </Properties>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22000.1" />
+  </Dependencies>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="App" Executable="App/main.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="growthCalc"
+                          Description="A simple growth calculation tool"
+                          BackgroundColor="transparent"
+                          Square150x150Logo="Assets\Square150x150Logo.png"
+                          Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Square71x71Logo="Assets\SmallTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png"/>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
 </Package>

@@ -1,0 +1,24 @@
+# MSIX Conversion Accelerator
+
+PackageName: growthCalc
+
+PublisherName: Josh Birch
+
+PackageVersion: 1.0.0.0
+
+EligibleForConversion: Yes
+
+ConversionStatus: Package Created. Need Validation
+
+Edition: Microsoft Windows 11 Home
+
+MinimumOSVersion: 22H2
+
+MinimumOSBuild: 22621.4112
+
+Architecture: 64
+
+MSIXConversionToolVersion: 1.2024.405.0
+
+AcceleratorVersion: 1.0.0
+
