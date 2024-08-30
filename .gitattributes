@@ -3,3 +3,7 @@
 
 docs/* linguist-documentation=true
 *.md linguist-documentation=true
+
+*.html linguist-detectable=false
+*.xml linguist-detectable=false
+*.python linguist-detectable=true
