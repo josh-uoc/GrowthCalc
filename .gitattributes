@@ -6,5 +6,5 @@ docs/* linguist-documentation=true
 
 *.html linguist-detectable=false
 *.xml linguist-detectable=false
-*.TeX linguist-detectable=false
+*.tex linguist-detectable=false
 *.python linguist-detectable=true
