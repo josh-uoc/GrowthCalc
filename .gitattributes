@@ -1,10 +1,15 @@
 *.py linguist-language=Python
+*.ipynb linguist-language=Python
 *.xml linguist-language=XML
 
 docs/* linguist-documentation=true
 *.md linguist-documentation=true
 
+*.tex linguist-detectable=false
 *.html linguist-detectable=false
 *.xml linguist-detectable=false
-*.tex linguist-detectable=false
-*.python linguist-detectable=true
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+
+docs/* linguist-documentation
+assets/* linguist-vendored
