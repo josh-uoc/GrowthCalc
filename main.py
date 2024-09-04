@@ -100,6 +100,7 @@ def dpi():
         pass
 
 
+
 ### GUI ###
 
 # Main
@@ -163,7 +164,7 @@ if __name__ == "__main__":
     tooltips()
 
     # Calculate button
-    calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20)
+    calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20, takefocus=False)
     calc_button.grid(column=0, columnspan=2, row=len(fields)+1, pady=30)
     calc_button.configure(takefocus=1)
     calc_button.bind("<Return>", lambda event: calc())
