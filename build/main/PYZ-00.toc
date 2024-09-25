@@ -1,4 +1,4 @@
-('C:\\Users\\University\\Dropbox\\code\\CBi\\growthCalc\\build\\main\\PYZ-00.pyz',
+('C:\\Users\\University\\Dropbox\\code\\Software\\growthCalc\\build\\main\\PYZ-00.pyz',
  [('PIL',
    'C:\\Users\\University\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python311\\site-packages\\PIL\\__init__.py',
    'PYMODULE'),

@@ -107,7 +107,7 @@ def dpi():
 if __name__ == "__main__":
     dpi()
     root = tk.Tk()
-    root.title("Compound Interest Calculator")
+    root.title("GrowthCalc")
 
     # Window styling
     root.geometry("450x550")
@@ -159,9 +159,6 @@ if __name__ == "__main__":
         setattr(frame, f"{entry_name}_entry", entry)
         entry.bind("<Return>", calc)
         entry.configure(takefocus=1)
-
-    # Tooltips
-    tooltips()
 
     # Calculate button
     calc_button = tkb.Button(frame, text="Calculate", command=calc, width=20, takefocus=False)
