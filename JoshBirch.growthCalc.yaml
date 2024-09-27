@@ -4,7 +4,7 @@ PackageName: growthCalc
 
 PublisherName: Josh Birch
 
-PackageVersion: 1.0.2.0
+PackageVersion: 1.1.0.0
 
 EligibleForConversion: Yes
 
@@ -14,7 +14,7 @@ Edition: Microsoft Windows 11 Home
 
 MinimumOSVersion: 22H2
 
-MinimumOSBuild: 22621.4112
+MinimumOSBuild: 22621.4169
 
 Architecture: 64
 

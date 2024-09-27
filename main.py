@@ -3,6 +3,7 @@ from tkinter import ttk, Canvas
 from tkinter import font as tkfont
 import ttkbootstrap as tkb
 from ttkbootstrap.tooltip import ToolTip
+import PySide6.QtCore
 
 
 
@@ -23,13 +24,6 @@ def compound(initial, rate, years, per_month):
         amount = amount * (1 + month_rate) + per_month
     return amount
 
-# # Main function test
-# if __name__ == "__main__":
-#     initial = float(input("Initial amount (£): £"))
-#     rate = float(input("Annual interest rate (%): "))
-#     years = int(input("Number of years: "))
-#     amount = compound(initial, rate, years)
-#     print(f"Total amount after {years} years: £{amount:.2f}")
 
 # Decimal check
 def decimal(value, max=2):
@@ -95,7 +89,7 @@ def tooltips():
 def dpi():
     try:
         from ctypes import windll
-        windll.shcore.SetProcessDpiAareness(1)
+        windll.shcore.SetProcessDpiAwareness(1)
     except:
         pass
 
